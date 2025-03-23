@@ -12,6 +12,7 @@ public class Player {
 
    public Player(String name){
        this.name = name;
+       this.inventory=new Inventory();
    }
    public String getCharName() {
        return charName;
@@ -32,7 +33,7 @@ public class Player {
         this.money=money;
     }
     public double getDamage(){
-        return damage;
+        return damage + this.getInventory().getWeapon().getDamage();
     }
     public void setDamage(double damage){
         this.damage=damage;
@@ -42,6 +43,21 @@ public class Player {
     }
     public void setHealth(int health){
         this.health=health;
+    }
+     public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     public void selectChar(){
@@ -73,8 +89,6 @@ public class Player {
                " Health: "+this.getHealth()+
                " Money: "+this.getMoney());
 
-
-
     }
 
     public void initPlayer(GameChar gameChar){
@@ -83,7 +97,11 @@ public class Player {
        this.setMoney(gameChar.getMoney());
        this.setCharName(gameChar.getName());
 
-
+    }
+    public void printInfo(){
+       System.out.println("Weapons: "+ this.getInventory().getWeapon().getName() +
+               "Damage: "+this.getDamage()+"Health: "+this.getHealth()+
+               " Money: "+this.getMoney());
     }
 
 }
