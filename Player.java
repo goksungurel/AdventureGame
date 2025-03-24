@@ -98,10 +98,27 @@ public class Player {
        this.setCharName(gameChar.getName());
 
     }
-    public void printInfo(){
+   public void printInfo(){
        System.out.println("Weapons: "+ this.getInventory().getWeapon().getName() +
+               "Armor: "+ this.getInventory().getArmor().getName() +
+               "Block: "+this.getInventory().getArmor().getBlock() +
                "Damage: "+this.getDamage()+"Health: "+this.getHealth()+
                " Money: "+this.getMoney());
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
 }
