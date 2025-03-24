@@ -4,6 +4,8 @@ public class ToolStore extends NormalLoc{
 
     }
     public boolean onLocation(){
+        boolean showMenu=true;
+        while(showMenu) {
         System.out.println("Welcome to Tool Store");
         System.out.println("1-Weapons");
         System.out.println("2-Armor");
@@ -20,12 +22,13 @@ public class ToolStore extends NormalLoc{
                 break;
             case 2:
                 printArmor();
-                buyWeapon();
+                buyArmor();
                 break;
             case 3:
-                return false;
+                showMenu=false;
+                break;
         }
-
+        }
 
         return true;
     }
@@ -39,6 +42,7 @@ public class ToolStore extends NormalLoc{
                     " | Price: " + w.getPrice());
 
         }
+            System.out.println("0-ÇIKIŞ YAP");
 
     }
     public void buyWeapon(){
@@ -48,6 +52,7 @@ public class ToolStore extends NormalLoc{
             System.out.println("You have entered an invalid option! Please enter a valid option.");
             selectWeaponID =scanner.nextInt();
         }
+         if (selectWeaponID != 0) {
 
         Weapon selectedWeapon =Weapon.getWeaponObjByID(selectWeaponID);
         if(selectedWeapon !=null) {
@@ -65,9 +70,37 @@ public class ToolStore extends NormalLoc{
 
             }
         }
+     }
+        
     }
-    public void printArmor(){
+   public void printArmor(){
         System.out.println("Armor");
+        for(Armor a: Armor.armors()){
+            System.out.println(a.getID()+": "+a.getName()+": "+"Money: "+a.getPrice()+"Block: "+a.getBlock());
+        }
+    }
+    public void buyArmor(){
+        System.out.println("Please choose a armor by entering its ID");
+        int selectArmorID=scanner.nextInt();
+        while(selectArmorID <1 || selectArmorID >Armor.armors().length){
+            System.out.println("You have entered an invalid option! Please enter a valid option.");
+            selectArmorID =scanner.nextInt();
+
+        }
+        Armor selectedArmor=Armor.getArmorObjByID(selectArmorID);
+
+        if(selectedArmor!=null){
+            if (selectedArmor.getPrice() > this.getPlayer().getMoney()) {
+                System.out.println("You have not a enough money! ");
+            }else{
+                System.out.println(selectedArmor.getName() + "You have purchased the  armor");
+                double balance = this.getPlayer().getMoney() - selectedArmor.getPrice();
+                this.getPlayer().setMoney(balance);
+                System.out.println("Your remaining money is: " + this.getPlayer().getMoney());
+                System.out.println("Previous armor is: "+this.getPlayer().getInventory().getArmor().getName());
+
+            }
+        }
     }
 
 }
