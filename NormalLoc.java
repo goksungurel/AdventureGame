@@ -5,6 +5,6 @@ public abstract class NormalLoc extends Location{
     }
 
     public boolean onLocation(){
-        return true;  //normal loc ta olme ihtimalimiz yok
+        return true;  
     }
 }
